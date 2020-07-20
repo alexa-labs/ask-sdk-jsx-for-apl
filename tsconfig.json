@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "none",
+    "lib": [
+      "esnext",
+      "dom",
+      "es2015.proxy"
+    ],
+    "allowJs": false,
+    "jsx": "react",
+    "declaration": true,
+    "rootDir": "./",
+    "outDir": "dist",
+    "strict": true,
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "exclude": [
+    "build/**/*",
+    "dist/**/*",
+    "./*.d.ts"
+  ]
+}

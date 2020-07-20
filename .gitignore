@@ -1,0 +1,16 @@
+.idea
+.vscode
+build
+node_modules
+*.iml
+*.tgz
+npm-debug.log
+lib/**/*.js
+test/**/*.js
+*.d.ts
+alexa.js
+!types.d.ts
+!alexa-layouts.d.ts
+.DS_Store
+tsconfig.tsbuildinfo
+dist
