@@ -22,8 +22,7 @@ To learn how to set up your workspace and get started, please reference the [Get
 
 To create an APL component using JSX, create an APL document using `APL` component and `MainTemplate` component.
 
-<details>
-<summary>Component Code</summary>
+**Component Code**
 
 ```JSX
 // apl/LaunchAplDocument.js
@@ -59,8 +58,7 @@ export class LaunchAplDocument extends React.Component {
 
 After creating your component, include it in your skill response as an APL directive.
 
-<details>
-<summary>Skill Response Code</summary>
+**Skill Response**
 
 ```JS
 import { SkillBuilders } from 'ask-sdk';
@@ -93,7 +91,7 @@ export const handler = builder.addRequestHandlers(
 ).lambda();
 ```
 
-</details>
+To see more example, check out the [Common Usage](https://github.com/alexa-labs/ask-sdk-jsx-for-apl/wiki/Common-Usage) section in our Wiki.
 
 ## Why use JSX for APL?
 
@@ -373,6 +371,8 @@ class WorkoutTypeIntentHandler {
 ```
 
 </details>
+
+Check out the [Core Concepts](https://github.com/alexa-labs/ask-sdk-jsx-for-apl/wiki/Core-Concepts) page in our Wiki to see more details!
 
 ## Security
 
