@@ -76,9 +76,9 @@ class LaunchIntentHandler {
     const responseBuilder = handlerInput.responseBuilder;
     return responseBuilder
         .addDirective(
-        new AplDocument({
-            (<LaunchAplDocument />).getDirective();
-        }))
+        new AplDocument(
+            <LaunchAplDocument />
+        ).getDirective())
         .speak("Welcome to my first JSX for APL skill")
         .getResponse();
   }
