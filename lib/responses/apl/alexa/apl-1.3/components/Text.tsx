@@ -16,7 +16,7 @@
 
 import omit from 'lodash/omit';
 import * as React from 'react';
-import { APLComponent } from '../../../common';
+import { BaseComponent } from '../../../common';
 type Entity = {
   id: string;
   type: string;
@@ -134,9 +134,10 @@ export interface TextProps {
 export const Text = (props: React.PropsWithChildren<TextProps>) => {
   return (
     <>
-      <APLComponent definition={{ ...omit(props, ['children']), type: 'Text' }}>
+      <BaseComponent
+        definition={{ type: 'Text', ...omit(props, ['children']) }}>
         {props.children}
-      </APLComponent>
+      </BaseComponent>
     </>
   );
 };

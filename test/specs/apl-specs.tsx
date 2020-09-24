@@ -47,7 +47,6 @@ export const imageSpec: APLSpec = (getter) => {
   expect(getter(apl).mainTemplate.items[0]).toEqual(
     {
       type: 'Image',
-      items: [],
       source: 'http://1'
     }
   )
@@ -100,16 +99,22 @@ export const multipleContainersAndTextSpec: APLSpec = getter => {
         <Container>
           <Container>
             <Text text="hello" />
+            <Text text="from ask-jsx-for-apl" />
           </Container>
+          <Text text="testing" />
         </Container>
       </MainTemplate>
     </APL>
   );
   const doc = getter(apl);
   expect(doc.mainTemplate.items[0].type).toBe("Container");
+  expect(doc.mainTemplate.items[0].items[1].type).toBe("Text");
+  expect(doc.mainTemplate.items[0].items[1].text).toBe("testing");
   expect(doc.mainTemplate.items[0].items[0].type).toBe("Container");
   expect(doc.mainTemplate.items[0].items[0].items[0].type).toBe("Text");
   expect(doc.mainTemplate.items[0].items[0].items[0].text).toBe("hello");
+  expect(doc.mainTemplate.items[0].items[0].items[1].type).toBe("Text");
+  expect(doc.mainTemplate.items[0].items[0].items[1].text).toBe("from ask-jsx-for-apl");
 };
 
 export const aplDocumentLevelSpec: APLSpec = getter => {
@@ -148,13 +153,18 @@ export const aplDocumentLevelSpec: APLSpec = getter => {
     duration: 500,
     value: [
       {
-        "property": "opacity",
-        "to": 1
+        property: "opacity",
+        to: "${to}"
       }
     ]
   };
   const commandsMap = {
-    myAnimateCommand: animateCommand
+    myAnimateCommand: {
+      parameters: [
+        "to"
+      ],
+      command: animateCommand
+    }
   };
   const apl = (
     <APL settings={settings} export={exports} resources={resources} styles={styles} 
@@ -168,7 +178,8 @@ export const aplDocumentLevelSpec: APLSpec = getter => {
   expect(doc.export.graphics[0]).toBe("testGraphic");
   expect(doc.export.description).toBe("Test Jsx");
   expect(doc.graphics.testGraphic).toEqual(graphics.testGraphic);
-  expect(doc.commands.myAnimateCommand).toEqual(animateCommand);
+  expect(doc.commands.myAnimateCommand.parameters[0]).toBe("to");
+  expect(doc.commands.myAnimateCommand.command).toEqual(animateCommand);
   expect(doc.onMount[0]).toEqual(animateCommand);
   expect(doc.handleKeyDown[0]).toEqual(keyboardEvent);
   expect(doc.handleKeyUp[0]).toEqual(keyboardEvent);

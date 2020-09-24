@@ -17,7 +17,7 @@
 import omit from 'lodash/omit';
 import * as React from 'react';
 import { APLImports } from '../../root';
-import { APLComponent } from '../../common';
+import { BaseComponent } from '../../common';
 const imports = [{ name: 'alexa-layouts', version: '1.1.0' }];
 export interface AlexaFooterProps {
   /* Hint text to display in Footer. */
@@ -32,10 +32,10 @@ export const AlexaFooter = (
   return (
     <>
       <APLImports imports={imports} />
-      <APLComponent
-        definition={{ ...omit(props, ['children']), type: 'AlexaFooter' }}>
+      <BaseComponent
+        definition={{ type: 'AlexaFooter', ...omit(props, ['children']) }}>
         {props.children}
-      </APLComponent>
+      </BaseComponent>
     </>
   );
 };

@@ -129,7 +129,7 @@ export const Sequence = (props: React.PropsWithChildren<SequenceProps>) => {
   return (
     <>
       <APLComponent
-        definition={{ ...omit(props, ['children']), type: 'Sequence' }}>
+        definition={{ type: 'Sequence', ...omit(props, ['children']) }}>
         {props.children}
       </APLComponent>
     </>

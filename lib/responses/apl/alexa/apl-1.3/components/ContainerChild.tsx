@@ -16,7 +16,7 @@
 
 import omit from 'lodash/omit';
 import * as React from 'react';
-import { APLComponent } from '../../../common';
+import { BaseComponent } from '../../../common';
 type dimension = string | number;
 export interface ContainerChildProps {
   /* Controls assignment of ordinals to the next child.  Defaults to 'normal'.If 'skip', the ordinal is not incremented. If 'reset', the next ordinal is 1. */
@@ -46,10 +46,10 @@ export const ContainerChild = (
 ) => {
   return (
     <>
-      <APLComponent
-        definition={{ ...omit(props, ['children']), type: 'ContainerChild' }}>
+      <BaseComponent
+        definition={{ type: 'ContainerChild', ...omit(props, ['children']) }}>
         {props.children}
-      </APLComponent>
+      </BaseComponent>
     </>
   );
 };

@@ -17,7 +17,7 @@
 import omit from 'lodash/omit';
 import * as React from 'react';
 import { APLImports } from '../../root';
-import { APLComponent } from '../../common';
+import { BaseComponent } from '../../common';
 const imports = [{ name: 'alexa-layouts', version: '1.1.0' }];
 export interface AlexaButtonProps {
   /* Colors will be swiched depend on the specified theme (light/dark). Default to dark theme */
@@ -38,10 +38,10 @@ export const AlexaButton = (
   return (
     <>
       <APLImports imports={imports} />
-      <APLComponent
-        definition={{ ...omit(props, ['children']), type: 'AlexaButton' }}>
+      <BaseComponent
+        definition={{ type: 'AlexaButton', ...omit(props, ['children']) }}>
         {props.children}
-      </APLComponent>
+      </BaseComponent>
     </>
   );
 };

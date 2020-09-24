@@ -17,7 +17,7 @@
 import omit from 'lodash/omit';
 import * as React from 'react';
 import { APLImports } from '../../root';
-import { APLComponent } from '../../common';
+import { ListComponent } from '../../common';
 const imports = [{ name: 'alexa-layouts', version: '1.1.0' }];
 export interface AlexaListsProps {
   /* Colors will be switched depending on the specified theme (light/dark). Default to dark theme */
@@ -106,10 +106,10 @@ export const AlexaLists = (props: React.PropsWithChildren<AlexaListsProps>) => {
   return (
     <>
       <APLImports imports={imports} />
-      <APLComponent
-        definition={{ ...omit(props, ['children']), type: 'AlexaLists' }}>
+      <ListComponent
+        definition={{ type: 'AlexaLists', ...omit(props, ['children']) }}>
         {props.children}
-      </APLComponent>
+      </ListComponent>
     </>
   );
 };

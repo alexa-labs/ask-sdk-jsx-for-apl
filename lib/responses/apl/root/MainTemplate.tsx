@@ -15,7 +15,7 @@
 */
 
 import React from 'react';
-import { ComponentProvider, MainTemplateConsumer } from '../common/context';
+import { APLComponentProvider, MainTemplateConsumer } from '../common/context';
 
 export interface MainTemplateProps {
   parameters?: string[];
@@ -31,9 +31,9 @@ export class MainTemplate extends React.Component<MainTemplateProps> {
               const mainTemplateItems = { items: mainTemplateCtx.items };
               Object.assign(mainTemplateCtx.parameters, this.props.parameters);
               return (
-                <ComponentProvider value={mainTemplateItems}>
+                <APLComponentProvider value={mainTemplateItems}>
                   {this.props.children}
-                </ComponentProvider>
+                </APLComponentProvider>
               );
             }
             return null;

@@ -129,7 +129,7 @@ export const Pager = (props: React.PropsWithChildren<PagerProps>) => {
   return (
     <>
       <APLComponent
-        definition={{ ...omit(props, ['children']), type: 'Pager' }}>
+        definition={{ type: 'Pager', ...omit(props, ['children']) }}>
         {props.children}
       </APLComponent>
     </>
