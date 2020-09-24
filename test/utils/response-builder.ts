@@ -37,6 +37,7 @@ export const mockResponseBuilder = (): jest.Mocked<ResponseBuilder> => {
     withCanFulfillIntent: jest.fn(),
     withShouldEndSession: jest.fn(),
     addDirective: jest.fn(),
-    getResponse: jest.fn()
+    getResponse: jest.fn(),
+    withApiResponse: jest.fn()
   }
 };
