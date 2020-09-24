@@ -149,12 +149,17 @@ export const aplDocumentLevelSpec: APLSpec = getter => {
     value: [
       {
         "property": "opacity",
-        "to": 1
+        to: "${to}"
       }
     ]
   };
   const commandsMap = {
-    myAnimateCommand: animateCommand
+    myAnimateCommand: {
+      parameters: [
+        "to"
+      ],
+      command: animateCommand
+    }
   };
   const apl = (
     <APL settings={settings} export={exports} resources={resources} styles={styles} 
@@ -168,7 +173,8 @@ export const aplDocumentLevelSpec: APLSpec = getter => {
   expect(doc.export.graphics[0]).toBe("testGraphic");
   expect(doc.export.description).toBe("Test Jsx");
   expect(doc.graphics.testGraphic).toEqual(graphics.testGraphic);
-  expect(doc.commands.myAnimateCommand).toEqual(animateCommand);
+  expect(doc.commands.myAnimateCommand.parameters[0]).toBe("to");
+  expect(doc.commands.myAnimateCommand.command).toEqual(animateCommand);
   expect(doc.onMount[0]).toEqual(animateCommand);
   expect(doc.handleKeyDown[0]).toEqual(keyboardEvent);
   expect(doc.handleKeyUp[0]).toEqual(keyboardEvent);

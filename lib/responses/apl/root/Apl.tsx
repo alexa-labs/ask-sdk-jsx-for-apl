@@ -37,7 +37,7 @@ export interface APLDocument {
   import?: ImportDefinition[];
   theme: string;
   layouts?: object;
-  commands?: { [key:string]: Command }
+  commands?: object;
   onMount?: Command[];
   handleKeyDown?: object[];
   handleKeyUp?: object[];
@@ -66,7 +66,7 @@ interface APLProps {
   dataSources?: object;
   token?: string;
   layouts?: object;
-  commands?: { [key:string]: Command }
+  commands?: object;
   onMount?: Command[];
   handleKeyDown?: object[];
   handleKeyUp?: object[];
