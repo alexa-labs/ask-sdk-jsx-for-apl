@@ -14,9 +14,7 @@
   limitations under the License.
 */
 
-export * from './AplComponent';
-export * from './BaseComponent';
-export * from './ListComponent';
-export * from './ListItemComponent';
-export * from './context';
-export * from './AplProps';
+export interface APLProps {
+    definition: { type: string; [key: string]: unknown };
+    children?: React.ReactNode | React.ReactNode[];
+}

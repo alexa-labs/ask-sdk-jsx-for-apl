@@ -16,7 +16,7 @@
 
 import omit from 'lodash/omit';
 import * as React from 'react';
-import { APLComponent } from '../../../common';
+import { BaseComponent } from '../../../common';
 type Entity = {
   id: string;
   type: string;
@@ -120,10 +120,10 @@ export const VectorGraphic = (
 ) => {
   return (
     <>
-      <APLComponent
-        definition={{ ...omit(props, ['children']), type: 'VectorGraphic' }}>
+      <BaseComponent
+        definition={{ type: 'VectorGraphic', ...omit(props, ['children']) }}>
         {props.children}
-      </APLComponent>
+      </BaseComponent>
     </>
   );
 };

@@ -119,7 +119,7 @@ export const TouchWrapper = (
   return (
     <>
       <APLComponent
-        definition={{ ...omit(props, ['children']), type: 'TouchWrapper' }}>
+        definition={{ type: 'TouchWrapper', ...omit(props, ['children']) }}>
         {props.children}
       </APLComponent>
     </>

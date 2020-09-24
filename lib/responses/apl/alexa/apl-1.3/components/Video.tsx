@@ -16,7 +16,7 @@
 
 import omit from 'lodash/omit';
 import * as React from 'react';
-import { APLComponent } from '../../../common';
+import { BaseComponent } from '../../../common';
 type Entity = {
   id: string;
   type: string;
@@ -133,10 +133,10 @@ export interface VideoProps {
 export const Video = (props: React.PropsWithChildren<VideoProps>) => {
   return (
     <>
-      <APLComponent
-        definition={{ ...omit(props, ['children']), type: 'Video' }}>
+      <BaseComponent
+        definition={{ type: 'Video', ...omit(props, ['children']) }}>
         {props.children}
-      </APLComponent>
+      </BaseComponent>
     </>
   );
 };

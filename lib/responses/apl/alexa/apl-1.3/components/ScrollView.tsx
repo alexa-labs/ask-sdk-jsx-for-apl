@@ -117,7 +117,7 @@ export const ScrollView = (props: React.PropsWithChildren<ScrollViewProps>) => {
   return (
     <>
       <APLComponent
-        definition={{ ...omit(props, ['children']), type: 'ScrollView' }}>
+        definition={{ type: 'ScrollView', ...omit(props, ['children']) }}>
         {props.children}
       </APLComponent>
     </>

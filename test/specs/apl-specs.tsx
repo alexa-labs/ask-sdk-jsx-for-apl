@@ -47,7 +47,6 @@ export const imageSpec: APLSpec = (getter) => {
   expect(getter(apl).mainTemplate.items[0]).toEqual(
     {
       type: 'Image',
-      items: [],
       source: 'http://1'
     }
   )
@@ -100,16 +99,22 @@ export const multipleContainersAndTextSpec: APLSpec = getter => {
         <Container>
           <Container>
             <Text text="hello" />
+            <Text text="from ask-jsx-for-apl" />
           </Container>
+          <Text text="testing" />
         </Container>
       </MainTemplate>
     </APL>
   );
   const doc = getter(apl);
   expect(doc.mainTemplate.items[0].type).toBe("Container");
+  expect(doc.mainTemplate.items[0].items[1].type).toBe("Text");
+  expect(doc.mainTemplate.items[0].items[1].text).toBe("testing");
   expect(doc.mainTemplate.items[0].items[0].type).toBe("Container");
   expect(doc.mainTemplate.items[0].items[0].items[0].type).toBe("Text");
   expect(doc.mainTemplate.items[0].items[0].items[0].text).toBe("hello");
+  expect(doc.mainTemplate.items[0].items[0].items[1].type).toBe("Text");
+  expect(doc.mainTemplate.items[0].items[0].items[1].text).toBe("from ask-jsx-for-apl");
 };
 
 export const aplDocumentLevelSpec: APLSpec = getter => {
@@ -148,7 +153,7 @@ export const aplDocumentLevelSpec: APLSpec = getter => {
     duration: 500,
     value: [
       {
-        "property": "opacity",
+        property: "opacity",
         to: "${to}"
       }
     ]

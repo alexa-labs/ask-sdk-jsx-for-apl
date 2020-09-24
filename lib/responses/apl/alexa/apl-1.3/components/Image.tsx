@@ -16,7 +16,7 @@
 
 import omit from 'lodash/omit';
 import * as React from 'react';
-import { APLComponent } from '../../../common';
+import { BaseComponent } from '../../../common';
 type Entity = {
   id: string;
   type: string;
@@ -145,10 +145,10 @@ export interface ImageProps {
 export const Image = (props: React.PropsWithChildren<ImageProps>) => {
   return (
     <>
-      <APLComponent
-        definition={{ ...omit(props, ['children']), type: 'Image' }}>
+      <BaseComponent
+        definition={{ type: 'Image', ...omit(props, ['children']) }}>
         {props.children}
-      </APLComponent>
+      </BaseComponent>
     </>
   );
 };

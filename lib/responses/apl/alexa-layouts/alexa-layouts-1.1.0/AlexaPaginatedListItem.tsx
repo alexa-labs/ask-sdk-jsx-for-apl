@@ -17,7 +17,7 @@
 import omit from 'lodash/omit';
 import * as React from 'react';
 import { APLImports } from '../../root';
-import { APLComponent } from '../../common';
+import { ListItemComponent } from '../../common';
 const imports = [{ name: 'alexa-layouts', version: '1.1.0' }];
 export interface AlexaPaginatedListItemProps {
   /* Title for fullscreen item. */
@@ -36,13 +36,13 @@ export const AlexaPaginatedListItem = (
   return (
     <>
       <APLImports imports={imports} />
-      <APLComponent
+      <ListItemComponent
         definition={{
-          ...omit(props, ['children']),
           type: 'AlexaPaginatedListItem',
+          ...omit(props, ['children']),
         }}>
         {props.children}
-      </APLComponent>
+      </ListItemComponent>
     </>
   );
 };

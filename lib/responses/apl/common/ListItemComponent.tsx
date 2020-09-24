@@ -14,9 +14,22 @@
   limitations under the License.
 */
 
-export * from './AplComponent';
-export * from './BaseComponent';
-export * from './ListComponent';
-export * from './ListItemComponent';
-export * from './context';
-export * from './AplProps';
+import React from 'react';
+import { APLProps } from './AplProps';
+import { BaseComponent } from './BaseComponent';
+import { ListComponentConsumer } from './context';
+
+export const ListItemComponent = function<T extends APLProps>(props: T) {
+    return (
+      <ListComponentConsumer>
+        {(parentListCtx) => {
+          if (parentListCtx) {
+            parentListCtx.listItems.push(props.definition);
+            return null;
+          } else {
+            return <BaseComponent definition={props.definition} />;
+          }
+        }}
+      </ListComponentConsumer>
+    );
+}

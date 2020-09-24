@@ -36,12 +36,21 @@ export const {
 
 export interface APLContext {
   items: unknown[];
-  listItems?: unknown[];
 }
+
+export interface LayoutContext {
+  listItems: unknown[];
+}
+
 export const {
-  Provider: ComponentProvider,
-  Consumer: ComponentConsumer,
+  Provider: APLComponentProvider,
+  Consumer: APLComponentConsumer,
 } = React.createContext<APLContext | null>(null);
+
+export const {
+  Provider: ListComponentProvider,
+  Consumer: ListComponentConsumer,
+} = React.createContext<LayoutContext | null>(null);
 
 interface APLRoot {
   imports: ImportDefinition[];

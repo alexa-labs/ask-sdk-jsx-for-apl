@@ -15,33 +15,16 @@
 */
 
 import React from 'react';
-import { APLContext, APLComponentProvider, APLComponentConsumer } from './context';
 import { APLProps } from './AplProps';
-import { BaseComponent } from './BaseComponent';
+import { APLComponentConsumer } from './context';
 
-export const APLComponent = function<T extends APLProps>(props: T) {
-  const aplCtx: APLContext = {
-    items: []
-  };
-  if (props.definition.items) {
-    aplCtx.items = aplCtx.items.concat(props.definition.items);
-    delete props.definition.items;
-  }
+export const BaseComponent = function<T extends APLProps>(props: T) {
   return (
     <>
-      <BaseComponent definition={props.definition} />
       <APLComponentConsumer>
         {(parentCtx) => {
           if (parentCtx) {
-            const r = (
-              <APLComponentProvider value={aplCtx}>
-                {props.children}
-              </APLComponentProvider>
-            );
-            // register
-            const lastIndex = parentCtx.items.length-1;
-            parentCtx.items[lastIndex] = Object.assign(parentCtx.items[lastIndex], aplCtx);
-            return r;
+            parentCtx.items.push(props.definition);
           }
           return null;
         }}

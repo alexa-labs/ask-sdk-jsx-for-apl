@@ -17,7 +17,7 @@
 import omit from 'lodash/omit';
 import * as React from 'react';
 import { APLImports } from '../../root';
-import { APLComponent } from '../../common';
+import { ListComponent } from '../../common';
 const imports = [{ name: 'alexa-layouts', version: '1.1.0' }];
 export interface AlexaPaginatedListProps {
   /* Colors will be switched depending on the specified theme (light/dark). Default to dark theme */
@@ -74,13 +74,13 @@ export const AlexaPaginatedList = (
   return (
     <>
       <APLImports imports={imports} />
-      <APLComponent
+      <ListComponent
         definition={{
-          ...omit(props, ['children']),
           type: 'AlexaPaginatedList',
+          ...omit(props, ['children']),
         }}>
         {props.children}
-      </APLComponent>
+      </ListComponent>
     </>
   );
 };

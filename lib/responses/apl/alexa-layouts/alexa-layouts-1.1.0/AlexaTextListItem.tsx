@@ -17,7 +17,7 @@
 import omit from 'lodash/omit';
 import * as React from 'react';
 import { APLImports } from '../../root';
-import { APLComponent } from '../../common';
+import { ListItemComponent } from '../../common';
 const imports = [{ name: 'alexa-layouts', version: '1.1.0' }];
 export interface AlexaTextListItemProps {
   /* Colors will be switched depending on the specified theme (light/dark). Default to dark theme */
@@ -40,13 +40,13 @@ export const AlexaTextListItem = (
   return (
     <>
       <APLImports imports={imports} />
-      <APLComponent
+      <ListItemComponent
         definition={{
-          ...omit(props, ['children']),
           type: 'AlexaTextListItem',
+          ...omit(props, ['children']),
         }}>
         {props.children}
-      </APLComponent>
+      </ListItemComponent>
     </>
   );
 };

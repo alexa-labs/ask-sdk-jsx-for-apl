@@ -131,7 +131,7 @@ export const Frame = (props: React.PropsWithChildren<FrameProps>) => {
   return (
     <>
       <APLComponent
-        definition={{ ...omit(props, ['children']), type: 'Frame' }}>
+        definition={{ type: 'Frame', ...omit(props, ['children']) }}>
         {props.children}
       </APLComponent>
     </>

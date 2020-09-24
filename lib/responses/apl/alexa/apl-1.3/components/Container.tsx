@@ -131,7 +131,7 @@ export const Container = (props: React.PropsWithChildren<ContainerProps>) => {
   return (
     <>
       <APLComponent
-        definition={{ ...omit(props, ['children']), type: 'Container' }}>
+        definition={{ type: 'Container', ...omit(props, ['children']) }}>
         {props.children}
       </APLComponent>
     </>

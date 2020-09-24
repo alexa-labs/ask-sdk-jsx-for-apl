@@ -17,7 +17,7 @@
 import omit from 'lodash/omit';
 import * as React from 'react';
 import { APLImports } from '../../root';
-import { APLComponent } from '../../common';
+import { BaseComponent } from '../../common';
 const imports = [{ name: 'alexa-layouts', version: '1.1.0' }];
 export interface AlexaImageListItemInnerComponentProps {
   /* image height for the inner image */
@@ -76,13 +76,13 @@ export const AlexaImageListItemInnerComponent = (
   return (
     <>
       <APLImports imports={imports} />
-      <APLComponent
+      <BaseComponent
         definition={{
-          ...omit(props, ['children']),
           type: 'AlexaImageListItemInnerComponent',
+          ...omit(props, ['children']),
         }}>
         {props.children}
-      </APLComponent>
+      </BaseComponent>
     </>
   );
 };

@@ -18,7 +18,7 @@ import * as React from "react";
 import { APLSpec } from "./types";
 import { APL, MainTemplate } from "../../lib";
 import { Container, Text } from "../../lib/responses/apl/alexa/apl-1.3/components";
-import { AlexaLists, AlexaHeader, AlexaFooter, AlexaButton } from "../../lib/responses/apl/alexa-layouts/alexa-layouts-1.1.0";
+import { AlexaLists, AlexaHeader, AlexaFooter, AlexaButton, AlexaImageList, AlexaImageListItem } from "../../lib/responses/apl/alexa-layouts/alexa-layouts-1.1.0";
 
 
 function getImportDefinition(document, ix = 0) {
@@ -88,7 +88,6 @@ export const alexaHeaderSpec: APLSpec = getter => {
 
   expect(getItem(getter(apl))).toEqual({
     type: 'AlexaHeader',
-    items: [],
     headerTitle: 'Hello World'
   });
 };
@@ -105,7 +104,6 @@ export const alexaFooterSpec: APLSpec = getter => {
   expect(getItem(getter(apl))).toEqual(
     {
       type: 'AlexaFooter',
-      items: [],
       hintText: 'hello'
     }
   )
@@ -126,7 +124,6 @@ export const alexaButtonSpec: APLSpec = getter => {
   expect(getItem(getter(apl))).toEqual(
     {
       type: 'AlexaButton',
-      items: [],
       buttonText: 'hello',
       primaryAction: {
         type: 'SendEvent',
@@ -135,6 +132,51 @@ export const alexaButtonSpec: APLSpec = getter => {
     }
   );
 };
+
+export const alexaImageListSpec: APLSpec = getter => {
+  const apl = (
+    <APL>
+      <MainTemplate>
+        <AlexaImageList imageSource="test source" headerTitle="test images">
+          <AlexaImageListItem imageSource="test source second" />
+          <AlexaImageListItem imageSource="test source third" />
+        </AlexaImageList>
+      </MainTemplate>
+    </APL>
+  );
+
+  expect(getItem(getter(apl))).toEqual({
+    type: 'AlexaImageList',
+    listItems: [
+      {
+        type: 'AlexaImageListItem',
+        imageSource: 'test source second'
+      },
+      {
+        type: 'AlexaImageListItem',
+        imageSource: 'test source third'
+      }
+    ],
+    imageSource: 'test source',
+    headerTitle: 'test images'
+  });
+}
+
+export const alexaTextListItemSpec: APLSpec = getter => {
+  const apl = (
+    <APL>
+      <MainTemplate>
+        <AlexaImageListItem imageSource="test source" primaryText="ask-jsx-for-apl" />
+      </MainTemplate>
+    </APL>
+  );
+
+  expect(getItem(getter(apl))).toEqual({
+    type: 'AlexaImageListItem',
+    imageSource: 'test source',
+    primaryText: 'ask-jsx-for-apl'
+  });
+}
 
 export const specs = [
   {
@@ -160,5 +202,13 @@ export const specs = [
   {
     name: '<AlexaButton />',
     spec: alexaButtonSpec,
+  },
+  {
+    name: '<AlexaTextListItem />',
+    spec: alexaTextListItemSpec
+  },
+  {
+    name: 'AlexaImageList and AlexaImageListItem',
+    spec: alexaImageListSpec
   }
 ];
