@@ -80,10 +80,7 @@ class LaunchIntentHandler {
   handle(handlerInput) {
     const responseBuilder = handlerInput.responseBuilder;
     return responseBuilder
-        .addDirective(
-        new AplDocument(
-            <LaunchAplDocument />
-        ).getDirective())
+        .addDirective(new AplDocument(<LaunchAplDocument />).getDirective())
         .speak("Welcome to my first JSX for APL skill")
         .getResponse();
   }
@@ -162,11 +159,7 @@ export class LaunchIntentHandler {
     handle(handlerInput) {
         const responseBuilder = handlerInput.responseBuilder;
         return responseBuilder
-            .addDirective(
-                new AplDocument({
-                    (<LaunchAplDocument />).getDirective();
-                })
-            )
+            .addDirective(new AplDocument(<LaunchAplDocument />).getDirective())
             .speak("Welcome to my first JSX for APL skill!")
             .getResponse();
     }
@@ -263,11 +256,10 @@ export class LaunchIntentHandler {
         }
 
         return responseBuilder
-            .addAplxDocument(
-                new AplDocument({
-                    (<LaunchAplDocument aplParameters={aplParameters}/>)
-                        .getDirective();
-                }))
+            .addDirective(
+                new AplDocument(<LaunchAplDocument aplParameters={aplParameters} />)
+                    .getDirective()
+            )
             .speak("Welcome to my first JSX for APL skill")
             .getResponse();
     }
@@ -368,7 +360,7 @@ class WorkoutTypeIntentHandler {
         const responseBuilder = handlerInput.responseBuilder;
         ... other code logic ...
         return responseBuilder
-            .addAplxDocument(<WorkOutApl ... />)
+            .addDirective(new AplDocument(<WorkOutApl ... />).getDirective())
             .speak('Here\'s a workout!')
             .getResponse();
     }
