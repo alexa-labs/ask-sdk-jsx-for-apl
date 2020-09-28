@@ -1,9 +1,18 @@
 {
   "name": "ask-sdk-jsx-for-apl",
-  "version": "1.0.0-beta.1",
-  "description": "",
+  "version": "1.0.0-beta.2",
+  "description": "JSX for APL is a React-based APL templating framework that allows developers to define APL document within the code.",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/alexa-labs/ask-sdk-jsx-for-apl#readme",
+  "bugs": {
+    "url": "https://github.com/alexa-labs/ask-sdk-jsx-for-apl/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexa-labs/ask-sdk-jsx-for-apl.git"
+  },
   "dependencies": {
     "lodash": "^4.17.11"
   },
