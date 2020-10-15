@@ -14,6 +14,9 @@
   limitations under the License.
 */
 
+import { LiteralUnion } from '../../../common';
+type easingEnum = 'linear' | 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out';
+type repeatModeEnum = 'restart' | 'reverse';
 type values = value | valueArray;
 type valueArray = value[] | string;
 type value = any;
@@ -32,11 +35,11 @@ export interface IAnimateItemCommand {
   /* The duration of the animation (in milliseconds) */
   duration: number | string;
   /* Specify an easing curve. */
-  easing?: string;
+  easing?: LiteralUnion<easingEnum, string>;
   /* Number of times to repeat. */
   repeatCount?: number | string;
   /* How repeated animations will play. */
-  repeatMode?: string;
+  repeatMode?: LiteralUnion<repeatModeEnum, string>;
   /* An array of animated component properties. */
   value: values;
   [key: string]: unknown;

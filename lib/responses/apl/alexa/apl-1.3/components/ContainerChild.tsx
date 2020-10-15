@@ -16,11 +16,20 @@
 
 import omit from 'lodash/omit';
 import * as React from 'react';
-import { BaseComponent } from '../../../common';
+import { BaseComponent, LiteralUnion } from '../../../common';
+type numberingEnum = 'normal' | 'reset' | 'skip';
+type alignSelfEnum =
+  | 'auto'
+  | 'start'
+  | 'end'
+  | 'center'
+  | 'baseline'
+  | 'stretch';
+type positionEnum = 'relative' | 'absolute';
 type dimension = string | number;
 export interface ContainerChildProps {
   /* Controls assignment of ordinals to the next child.  Defaults to 'normal'.If 'skip', the ordinal is not incremented. If 'reset', the next ordinal is 1. */
-  numbering?: string;
+  numbering?: LiteralUnion<numberingEnum, string>;
   /* Space to add between this component and the previous component. */
   spacing?: dimension;
   /* If positive, this component will stretch if there is extra space. This only applies if the component is inside a container or sequence. */
@@ -28,9 +37,9 @@ export interface ContainerChildProps {
   /* If positive, this component will shrink if there is not enought space .This only applies if the component is inside a container or sequence. */
   shrink?: number | string;
   /* Cross-axis layout position.  Only works in a container or sequence.  Overrides the parent's alignItems property */
-  alignSelf?: string;
+  alignSelf?: LiteralUnion<alignSelfEnum, string>;
   /* Relative or absolute layout positioning */
-  position?: string;
+  position?: LiteralUnion<positionEnum, string>;
   /* Distance to offset the left edge of this component in absolute positioning */
   left?: dimension;
   /* Distance to offset the top edge of this component in absolute positioning */

@@ -16,7 +16,27 @@
 
 import omit from 'lodash/omit';
 import * as React from 'react';
-import { BaseComponent } from '../../../common';
+import { BaseComponent, LiteralUnion } from '../../../common';
+type DisplayEnum = 'invisible' | 'none' | 'normal';
+type scaleEnum =
+  | 'fill'
+  | 'best-fill'
+  | 'best-fit'
+  | 'best-fit-down'
+  | 'none'
+  | 'contain'
+  | 'cover'
+  | 'scale-down';
+type alignEnum =
+  | 'left'
+  | 'right'
+  | 'center'
+  | 'top'
+  | 'bottom'
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right';
 type Entity = {
   id: string;
   type: string;
@@ -24,10 +44,21 @@ type Entity = {
   nameSynonyms?: string[] | string;
   targetSlotName?: string;
 };
+type typeEnum =
+  | 'any'
+  | 'string'
+  | 'number'
+  | 'integer'
+  | 'style'
+  | 'color'
+  | 'boolean'
+  | 'dimension'
+  | 'component'
+  | 'componentArray';
 type Binding = {
   name: string;
   value: string;
-  type?: string;
+  type?: LiteralUnion<typeEnum, string>;
 };
 type dimension = string | number;
 type FilterBlur = {
@@ -42,12 +73,13 @@ type FilterNoise = {
 };
 type Filter = FilterBlur | FilterNoise;
 type FilterArray = Filter[] | string;
+type _typeEnum = 'linear' | 'radial';
 type Gradient = {
   angle?: number | string;
   colorRange: string[] | string;
   description?: string;
   inputRange?: number[] | string;
-  type?: string;
+  type?: LiteralUnion<_typeEnum, string>;
 };
 type Command = {
   type: string;
@@ -75,7 +107,7 @@ export interface ImageProps {
   /* If true, this component does not respond to touch or focus. */
   disabled?: boolean | string;
   /* Control if the component is displayed on the screen. */
-  display?: string;
+  display?: LiteralUnion<DisplayEnum, string>;
   /* A list of commands to execute when the component is first displayed. */
   onMount?: Command[] | string;
   /* Array of transformations. */
@@ -121,9 +153,9 @@ export interface ImageProps {
   /* The URL to download the image from */
   source?: string;
   /* How the image should be scaled to fill the current box. */
-  scale?: string;
+  scale?: LiteralUnion<scaleEnum, string>;
   /* How the image should be aligned in the current box */
-  align?: string;
+  align?: LiteralUnion<alignEnum, string>;
   /* Radius of the image borders. */
   borderRadius?: dimension;
   /* Apply an appropropriate scrim to this image. */

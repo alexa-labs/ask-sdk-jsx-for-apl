@@ -40,14 +40,19 @@ export const imageSpec: APLSpec = (getter) => {
   const apl = (
     <APL>
       <MainTemplate>
-        <Image source="http://1" />
+        <Image source="http://1" overlayGradient= {{angle: 70, colorRange:"jsx", type:"linear"}} />
       </MainTemplate>
     </APL>
   );
   expect(getter(apl).mainTemplate.items[0]).toEqual(
     {
       type: 'Image',
-      source: 'http://1'
+      source: 'http://1',
+      overlayGradient: {
+        angle: 70,
+        colorRange:"jsx",
+        type:"linear"
+      }
     }
   )
 };
@@ -64,7 +69,7 @@ export const containerAndTextSpec: APLSpec = getter => {
   const apl = (
     <APL>
       <MainTemplate>
-        <Container>
+        <Container display="normal">
           <Text text="hello" />
         </Container>
       </MainTemplate>
@@ -72,6 +77,7 @@ export const containerAndTextSpec: APLSpec = getter => {
   );
   const doc = getter(apl);
   expect(doc.mainTemplate.items[0].type).toBe("Container");
+  expect(doc.mainTemplate.items[0].display).toBe("normal");
   expect(doc.mainTemplate.items[0].items[0].type).toBe("Text");
   expect(doc.mainTemplate.items[0].items[0].text).toBe("hello");
 };

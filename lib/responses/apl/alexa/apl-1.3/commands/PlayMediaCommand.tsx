@@ -14,6 +14,8 @@
   limitations under the License.
 */
 
+import { LiteralUnion } from '../../../common';
+type audioTrackEnum = 'foreground' | 'background' | 'none' | 'mute';
 export interface IPlayMediaCommand {
   /* An optional description for this command */
   description?: string;
@@ -24,7 +26,7 @@ export interface IPlayMediaCommand {
   /* If this evaluates to false, the command is skipped */
   when?: boolean | string;
   /* Audio track to play on */
-  audioTrack?: string;
+  audioTrack?: LiteralUnion<audioTrackEnum, string>;
   /* The id of the component. */
   componentId?: string;
   /* The id of the component. */
