@@ -14,6 +14,15 @@
   limitations under the License.
 */
 
+import { LiteralUnion } from '../../../common';
+type commandEnum =
+  | 'play'
+  | 'pause'
+  | 'next'
+  | 'previous'
+  | 'rewind'
+  | 'seek'
+  | 'setTrack';
 export interface IControlMediaCommand {
   /* An optional description for this command */
   description?: string;
@@ -24,7 +33,7 @@ export interface IControlMediaCommand {
   /* If this evaluates to false, the command is skipped */
   when?: boolean | string;
   /* How repeated animations will play. */
-  command: string;
+  command: LiteralUnion<commandEnum, string>;
   /* The id of the component. */
   componentId?: string;
   /* Optional data value. */

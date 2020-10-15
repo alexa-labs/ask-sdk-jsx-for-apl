@@ -14,6 +14,9 @@
   limitations under the License.
 */
 
+import { LiteralUnion } from '../../../common';
+type alignEnum = 'first' | 'center' | 'last' | 'visible';
+type highlightModeEnum = 'line' | 'block';
 export interface ISpeakItemCommand {
   /* An optional description for this command */
   description?: string;
@@ -24,11 +27,11 @@ export interface ISpeakItemCommand {
   /* If this evaluates to false, the command is skipped */
   when?: boolean | string;
   /* The alignment of the item after scrolling. */
-  align?: string;
+  align?: LiteralUnion<alignEnum, string>;
   /* The id of the component. */
   componentId?: string;
   /* How Karaoke is applied: on a line-by-line basis, or to the entire block. */
-  highlightMode?: string;
+  highlightMode?: LiteralUnion<highlightModeEnum, string>;
   /* The minimum number of milliseconds that an item will be highlighted. */
   minimumDwellTime?: number | string;
   [key: string]: unknown;

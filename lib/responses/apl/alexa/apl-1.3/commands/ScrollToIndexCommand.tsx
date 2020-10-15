@@ -14,6 +14,8 @@
   limitations under the License.
 */
 
+import { LiteralUnion } from '../../../common';
+type alignEnum = 'first' | 'center' | 'last' | 'visible';
 export interface IScrollToIndexCommand {
   /* An optional description for this command */
   description?: string;
@@ -24,7 +26,7 @@ export interface IScrollToIndexCommand {
   /* If this evaluates to false, the command is skipped */
   when?: boolean | string;
   /* The alignment of the item after scrolling. */
-  align?: string;
+  align?: LiteralUnion<alignEnum, string>;
   /* The id of the component. */
   componentId?: string;
   /* The 0-based index of the child to display. */

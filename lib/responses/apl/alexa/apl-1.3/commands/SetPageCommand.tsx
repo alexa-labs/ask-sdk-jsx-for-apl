@@ -14,6 +14,8 @@
   limitations under the License.
 */
 
+import { LiteralUnion } from '../../../common';
+type positionEnum = 'relative' | 'absolute';
 export interface ISetPageCommand {
   /* An optional description for this command */
   description?: string;
@@ -26,7 +28,7 @@ export interface ISetPageCommand {
   /* The id of the component. */
   componentId?: string;
   /* Whether the value is a relative or absolute offset. */
-  position?: string;
+  position?: LiteralUnion<positionEnum, string>;
   /* The distance to move. May be an absolute or relative value. */
   value: number | string;
   [key: string]: unknown;

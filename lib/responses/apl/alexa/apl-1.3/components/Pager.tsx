@@ -16,7 +16,9 @@
 
 import omit from 'lodash/omit';
 import * as React from 'react';
-import { APLComponent } from '../../../common';
+import { APLComponent, LiteralUnion } from '../../../common';
+type DisplayEnum = 'invisible' | 'none' | 'normal';
+type navigationEnum = 'normal' | 'none' | 'wrap' | 'forward-only';
 type Entity = {
   id: string;
   type: string;
@@ -24,10 +26,21 @@ type Entity = {
   nameSynonyms?: string[] | string;
   targetSlotName?: string;
 };
+type typeEnum =
+  | 'any'
+  | 'string'
+  | 'number'
+  | 'integer'
+  | 'style'
+  | 'color'
+  | 'boolean'
+  | 'dimension'
+  | 'component'
+  | 'componentArray';
 type Binding = {
   name: string;
   value: string;
-  type?: string;
+  type?: LiteralUnion<typeEnum, string>;
 };
 type dimension = string | number;
 type anyArray = anyType[] | string;
@@ -58,7 +71,7 @@ export interface PagerProps {
   /* If true, this component does not respond to touch or focus. */
   disabled?: boolean | string;
   /* Control if the component is displayed on the screen. */
-  display?: string;
+  display?: LiteralUnion<DisplayEnum, string>;
   /* A list of commands to execute when the component is first displayed. */
   onMount?: Command[] | string;
   /* Array of transformations. */
@@ -112,7 +125,7 @@ export interface PagerProps {
   /* Commands to execute when the page changes */
   onPageChanged?: Command[] | string;
   /* Specifies the allowed navigation direction */
-  navigation?: string;
+  navigation?: LiteralUnion<navigationEnum, string>;
   /* Shadow color */
   shadowColor?: string;
   /* Horizontal offset of the shadow */

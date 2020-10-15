@@ -16,7 +16,17 @@
 
 import omit from 'lodash/omit';
 import * as React from 'react';
-import { APLComponent } from '../../../common';
+import { APLComponent, LiteralUnion } from '../../../common';
+type DisplayEnum = 'invisible' | 'none' | 'normal';
+type alignItemsEnum = 'stretch' | 'center' | 'start' | 'end' | 'baseline';
+type directionEnum = 'column' | 'row';
+type justifyContentEnum =
+  | 'start'
+  | 'end'
+  | 'center'
+  | 'spaceBetween'
+  | 'spaceAround'
+  | 'spaceEvenly';
 type Entity = {
   id: string;
   type: string;
@@ -24,10 +34,21 @@ type Entity = {
   nameSynonyms?: string[] | string;
   targetSlotName?: string;
 };
+type typeEnum =
+  | 'any'
+  | 'string'
+  | 'number'
+  | 'integer'
+  | 'style'
+  | 'color'
+  | 'boolean'
+  | 'dimension'
+  | 'component'
+  | 'componentArray';
 type Binding = {
   name: string;
   value: string;
-  type?: string;
+  type?: LiteralUnion<typeEnum, string>;
 };
 type dimension = string | number;
 type anyArray = anyType[] | string;
@@ -58,7 +79,7 @@ export interface ContainerProps {
   /* If true, this component does not respond to touch or focus. */
   disabled?: boolean | string;
   /* Control if the component is displayed on the screen. */
-  display?: string;
+  display?: LiteralUnion<DisplayEnum, string>;
   /* A list of commands to execute when the component is first displayed. */
   onMount?: Command[] | string;
   /* Array of transformations. */
@@ -110,11 +131,11 @@ export interface ContainerProps {
   /* If true, assign ordinal numbers to the children */
   numbered?: boolean | string;
   /* Specifies default alignment for children in the cross-axis. */
-  alignItems?: string;
+  alignItems?: LiteralUnion<alignItemsEnum, string>;
   /* The direction that children will laid out in. */
-  direction?: string;
+  direction?: LiteralUnion<directionEnum, string>;
   /* Distribute free space when there is room on the main axis. */
-  justifyContent?: string;
+  justifyContent?: LiteralUnion<justifyContentEnum, string>;
   /* Shadow color */
   shadowColor?: string;
   /* Horizontal offset of the shadow */

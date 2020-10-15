@@ -16,11 +16,12 @@
 
 import omit from 'lodash/omit';
 import * as React from 'react';
-import { BaseComponent } from '../../../common';
+import { BaseComponent, LiteralUnion } from '../../../common';
+type numberingEnum = 'normal' | 'reset' | 'skip';
 type dimension = string | number;
 export interface SequenceChildProps {
   /* Controls assignment of ordinals to the next child.  Defaults to 'normal'.If 'skip', the ordinal is not incremented. If 'reset', the next ordinal is 1. */
-  numbering?: string;
+  numbering?: LiteralUnion<numberingEnum, string>;
   /* Space to add between this component and the previous component. */
   spacing?: dimension;
   [key: string]: unknown;

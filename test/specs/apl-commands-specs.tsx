@@ -22,6 +22,7 @@ export const animateItemSpec: APLSpec = (getter) => {
     const animateItem: Command = {
       type: "AnimateItem",
       duration: 300,
+      repeatMode: "restart",
       value: [
         {
           property: 'opacity',
@@ -40,6 +41,7 @@ export const animateItemSpec: APLSpec = (getter) => {
     expect(getter(apl).mainTemplate.items[0].onMount[0]).toEqual({
         type: 'AnimateItem',
         duration: 300,
+        repeatMode: "restart",
         value: [
             {
               property: 'opacity',
@@ -103,7 +105,7 @@ export const sequentialWithMultipleCommandSpec: APLSpec = (getter) => {
     type: 'PlayMedia',
     componentId: 'myAudioPlayer',
     source: 'http://test',
-    audioTrack: 'test'
+    audioTrack: "foreground"
   };
   const speakItem: Command = {
     type: 'SpeakItem',
@@ -127,7 +129,7 @@ export const sequentialWithMultipleCommandSpec: APLSpec = (getter) => {
         { type: 'PlayMedia',
         componentId: 'myAudioPlayer',
         source: 'http://test',
-        audioTrack: 'test' },
+        audioTrack: 'foreground' },
         {
           type: 'SpeakItem',
           componentId: 'mySpokenItem'
@@ -195,7 +197,7 @@ export const parallelCommandWithMultipleCommands: APLSpec = (getter) => {
   const scrollToCommand: Command = {
     type: "ScrollToComponent",
     componentId: "test",
-    align: "center"
+    align: "testAlign"
   }
 
   const openUrlCommand: Command = {
@@ -238,7 +240,7 @@ export const parallelCommandWithMultipleCommands: APLSpec = (getter) => {
             {
               type: 'ScrollToComponent',
               componentId: 'test',
-              align: 'center',
+              align: 'testAlign',
             },
           ],
         },

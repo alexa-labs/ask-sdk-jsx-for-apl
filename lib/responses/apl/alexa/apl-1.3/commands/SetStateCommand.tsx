@@ -14,6 +14,8 @@
   limitations under the License.
 */
 
+import { LiteralUnion } from '../../../common';
+type stateEnum = 'checked' | 'disabled';
 export interface ISetStateCommand {
   /* An optional description for this command */
   description?: string;
@@ -26,7 +28,7 @@ export interface ISetStateCommand {
   /* The id of the component whose value should be set. */
   componentId?: string;
   /* The name of the state to set. */
-  state: string;
+  state: LiteralUnion<stateEnum, string>;
   /* The value to set on the state. */
   value: boolean | string;
   [key: string]: unknown;

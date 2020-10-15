@@ -16,7 +16,23 @@
 
 import omit from 'lodash/omit';
 import * as React from 'react';
-import { BaseComponent } from '../../../common';
+import { BaseComponent, LiteralUnion } from '../../../common';
+type DisplayEnum = 'invisible' | 'none' | 'normal';
+type textAlignEnum = 'auto' | 'left' | 'center' | 'right';
+type textAlignVerticalEnum = 'auto' | 'top' | 'center' | 'bottom';
+type fontStyleEnum = 'normal' | 'italic';
+type fontWeightEnum =
+  | 'normal'
+  | 'bold'
+  | '100'
+  | '200'
+  | '300'
+  | '400'
+  | '500'
+  | '600'
+  | '700'
+  | '800'
+  | '900';
 type Entity = {
   id: string;
   type: string;
@@ -24,10 +40,21 @@ type Entity = {
   nameSynonyms?: string[] | string;
   targetSlotName?: string;
 };
+type typeEnum =
+  | 'any'
+  | 'string'
+  | 'number'
+  | 'integer'
+  | 'style'
+  | 'color'
+  | 'boolean'
+  | 'dimension'
+  | 'component'
+  | 'componentArray';
 type Binding = {
   name: string;
   value: string;
-  type?: string;
+  type?: LiteralUnion<typeEnum, string>;
 };
 type dimension = string | number;
 type Command = {
@@ -56,7 +83,7 @@ export interface TextProps {
   /* If true, this component does not respond to touch or focus. */
   disabled?: boolean | string;
   /* Control if the component is displayed on the screen. */
-  display?: string;
+  display?: LiteralUnion<DisplayEnum, string>;
   /* A list of commands to execute when the component is first displayed. */
   onMount?: Command[] | string;
   /* Array of transformations. */
@@ -108,13 +135,13 @@ export interface TextProps {
   /* Vertical offset of the shadow */
   shadowVerticalOffset?: dimension;
   /* Alignment of text in a fixed width or multiline text block */
-  textAlign?: string;
+  textAlign?: LiteralUnion<textAlignEnum, string>;
   /* Vertical alignment */
-  textAlignVertical?: string;
+  textAlignVertical?: LiteralUnion<textAlignVerticalEnum, string>;
   /* Base color of the text */
   color?: string;
   /* Font style of the text */
-  fontStyle?: string;
+  fontStyle?: LiteralUnion<fontStyleEnum, string>;
   /* Font family for the text */
   fontFamily?: string;
   /* Maximum number of lines of text to display. */
@@ -124,7 +151,7 @@ export interface TextProps {
   /* Text to display.  The text supports a limited form of markup. */
   text?: string;
   /* Font weight to display */
-  fontWeight?: string;
+  fontWeight?: LiteralUnion<fontWeightEnum, string>;
   /* Additional space between letters */
   letterSpacing?: dimension;
   /* Multiplier for line spacing */

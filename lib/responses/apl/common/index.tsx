@@ -20,3 +20,4 @@ export * from './ListComponent';
 export * from './ListItemComponent';
 export * from './context';
 export * from './AplProps';
+export * from './AplComplexTypes';
