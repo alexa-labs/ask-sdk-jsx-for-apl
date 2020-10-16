@@ -24,6 +24,7 @@ import {
   ImportDefinition,
   MainTemplateDefinition,
   MainTemplateProvider,
+  LayoutDefinition,
 } from '../common/context';
 import { ResponseBuilder } from 'ask-sdk-core';
 import { UserAgentManager } from 'ask-sdk-runtime';
@@ -38,7 +39,7 @@ export interface APLDocument {
   background?: string;
   import?: ImportDefinition[];
   theme: string;
-  layouts?: object;
+  layouts?: LayoutDefinition;
   commands?: object;
   onMount?: Command[];
   handleKeyDown?: object[];
@@ -67,7 +68,7 @@ interface APLProps {
   background?: string;
   dataSources?: object;
   token?: string;
-  layouts?: object;
+  layouts?: LayoutDefinition;
   commands?: object;
   onMount?: Command[];
   handleKeyDown?: object[];
@@ -80,6 +81,7 @@ interface APLProps {
 
 export class APL extends SkillResponsePart<APLProps> {
   private static packageVersion: string;
+  private layouts: LayoutDefinition = {};
   readonly items: unknown[] = [];
   readonly imports: ImportDefinition[] = [];
   readonly mainTemplate: MainTemplateDefinition = {
@@ -104,7 +106,7 @@ export class APL extends SkillResponsePart<APLProps> {
       handleKeyUp: this.props.handleKeyUp,
       resources: this.props.resources,
       styles: this.props.styles,
-      layouts: this.props.layouts,
+      layouts: this.layouts,
       graphics: this.props.graphics,
       mainTemplate: this.mainTemplate,
     },
@@ -112,11 +114,28 @@ export class APL extends SkillResponsePart<APLProps> {
   };
 
   protected register(responseBuilder: ResponseBuilder): void {
+    this.unifyDocumentFields();
+    this.removeEmptyDocumentFields();
+    this.registerUserAgent();
+    responseBuilder.addDirective(this.directive);
+  }
+
+  private unifyDocumentFields() {
     const imports = uniqBy(this.imports, (i) => i.name + i.version);
     this.imports.length = 0;
     this.imports.push(...imports);
-    this.registerUserAgent();
-    responseBuilder.addDirective(this.directive);
+    if (this.props.layouts) {
+      this.directive.document.layouts = Object.assign(this.props.layouts, this.layouts);
+    }
+  }
+
+  private removeEmptyDocumentFields() {
+    if (this.directive.document.import && this.directive.document.import.length === 0) {
+      delete this.directive.document.import;
+    }
+    if (this.directive.document.layouts && Object.keys(this.directive.document.layouts).length === 0) {
+      delete this.directive.document.layouts;
+    }
   }
 
   private registerUserAgent() {
@@ -132,7 +151,7 @@ export class APL extends SkillResponsePart<APLProps> {
   render() {
     return (
       <>
-        <APLProvider value={{ imports: this.imports }}>
+        <APLProvider value={{ imports: this.imports, layouts: this.layouts }}>
           <MainTemplateProvider value={{ ...this.mainTemplate }}>
             {this.props.children}
             <ResponseBuilderCtx.Consumer>

@@ -19,6 +19,7 @@ import { AplDocument } from "../../../lib";
 import { specs as aplSpecs } from "../../specs/apl-specs";
 import { specs as alexaLayoutSpecs } from "../../specs/alexa-layouts-specs"
 import { specs as aplCommandSpecs } from "../../specs/apl-commands-specs"
+import { specs as aplCustomLayoutsSpecs } from "../../specs/apl-custom-layouts"
 
 const getter = (doc) => new AplDocument(doc).getDocument();
 describe('APLDocument', () => {
@@ -30,5 +31,8 @@ describe('APLDocument', () => {
   });
   describe('APL Commands Specs', () => {
     aplCommandSpecs.forEach(({name, spec}) => test(name, () => spec(getter)));
+  });
+  describe('APL Custom Layouts Specs', () => {
+    aplCustomLayoutsSpecs.forEach(({name, spec}) => test(name, () => spec(getter)));
   });
 });
