@@ -23,6 +23,14 @@ export interface ImportDefinition {
   source?: string;
 }
 
+export interface LayoutDefinition {
+  [key: string]: {
+    parameters?: any;
+    items?: any;
+    [key: string]: any;
+  }
+}
+
 export const ResponseBuilderCtx = React.createContext<ResponseBuilder | null>(null);
 
 export interface MainTemplateDefinition {
@@ -54,6 +62,7 @@ export const {
 
 interface APLRoot {
   imports: ImportDefinition[];
+  layouts: LayoutDefinition;
 }
 export const {
   Provider: APLProvider,

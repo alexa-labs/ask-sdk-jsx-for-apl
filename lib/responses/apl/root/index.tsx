@@ -17,3 +17,4 @@
 export * from './Apl';
 export * from './AplImports';
 export * from './MainTemplate';
+export * from './AplLayout';
