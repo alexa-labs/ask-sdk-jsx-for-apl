@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-beta.3](https://github.com/alexa-labs/ask-sdk-jsx-for-apl/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2020-10-16)
+
+
+### Features
+
+* Add enum support for component properties. ([49e3ef6](https://github.com/alexa-labs/ask-sdk-jsx-for-apl/commit/49e3ef6b3638cbb73a41a38121a293424f6ea6df))
+* Add JSX support for Apl Layouts. ([fe668ff](https://github.com/alexa-labs/ask-sdk-jsx-for-apl/commit/fe668ff5fd1c658328858d079b087bbff1bffbf8))
+* Upgrade to APL 1.4 ([cd9e885](https://github.com/alexa-labs/ask-sdk-jsx-for-apl/commit/cd9e885f6ae2ad26d207bb034a48248b541023d4))
+
 ## [1.0.0-beta.2](https://github.com/alexa-labs/ask-sdk-jsx-for-apl/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2020-09-28)
 
 ## 1.0.0-beta.1 (2020-09-24)
