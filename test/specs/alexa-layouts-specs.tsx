@@ -16,8 +16,7 @@
 
 import * as React from "react";
 import { APLSpec } from "./types";
-import { APL, MainTemplate } from "../../lib";
-import { Container, Text } from "../../lib/responses/apl/alexa/apl-1.3/components";
+import { APL, Container, Text, MainTemplate } from "../../lib";
 import { AlexaLists, AlexaHeader, AlexaFooter, AlexaButton, AlexaImageList, AlexaImageListItem } from "../../lib/responses/apl/alexa-layouts/alexa-layouts-1.1.0";
 
 

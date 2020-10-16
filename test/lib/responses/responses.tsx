@@ -14,10 +14,10 @@
   limitations under the License.
 */
 
-import { APL, APLDirective, MainTemplate, ResponseBuilderCtx } from '../../../lib';
-import { Container, Text } from '../../../lib/responses/apl/alexa/apl-1.3/components';
+import { APL, Container, Text, APLDirective, MainTemplate, ResponseBuilderCtx } from '../../../lib';
 import * as React from "react";
 import { ResponseBuilder } from "ask-sdk-core";
+import { UserAgentManager } from "ask-sdk-runtime";
 import { render } from 'enzyme';
 import { mockResponseBuilder } from "../../utils/response-builder";
 import { AlexaLists } from "../../../lib/responses/apl/alexa-layouts/alexa-layouts-1.1.0";
@@ -48,6 +48,7 @@ function getImportDefinition(ix = 0) {
 describe('responses', () => {
   describe('alexa-layouts', () => {
     test('imports work with APL', () => {
+      UserAgentManager.registerComponent = jest.fn();
       render(
         <>
           <APL>
@@ -63,6 +64,8 @@ describe('responses', () => {
         </>
       );
       expect(responseBuilder.addDirective).toHaveBeenCalledTimes(1);
+      expect(UserAgentManager.registerComponent).toHaveBeenCalledTimes(1);
+      expect(UserAgentManager.registerComponent).toHaveBeenCalledWith(expect.stringContaining('ask-sdk-jsx-for-apl'));
       expect(getImportDefinition()).toEqual({
         "name": "alexa-layouts",
         "version": "1.1.0"

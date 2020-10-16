@@ -14,9 +14,17 @@
   limitations under the License.
 */
 
-export * from './responses/apl/alexa/apl-1.4/components';
-export * from './responses/apl/alexa/apl-1.4/commands';
-export * from './responses/apl/root';
-export * from './responses/apl/common';
-export * from './responses/apl-document';
-export * from './responses/skill-response';
+export interface IFinishCommand {
+  /* Optional documentation for this command */
+  description?: string;
+  /* Delay time in milliseconds before this command executes. Must be non-negative. */
+  delay?: number | string;
+  /* If true, disable the Interaction Timer */
+  screenLock?: boolean | string;
+  /* Specify the sequencer that should execute this command. */
+  sequencer?: string;
+  /* Conditional expression. If this evaluates to false, the command is skipped. */
+  when?: boolean | string;
+  [key: string]: unknown;
+  readonly type: 'Finish';
+}
