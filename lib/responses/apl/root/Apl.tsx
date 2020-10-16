@@ -17,7 +17,7 @@
 import React from 'react';
 import uniqBy from 'lodash/uniqBy';
 import { SkillResponsePart } from '../../skill-response';
-import { Command } from '../alexa/apl-1.3/commands'
+import { Command } from '../alexa/apl-1.4/commands'
 import {
   ResponseBuilderCtx,
   APLProvider,
@@ -26,7 +26,9 @@ import {
   MainTemplateProvider,
 } from '../common/context';
 import { ResponseBuilder } from 'ask-sdk-core';
-const APLVersion = '1.3';
+import { UserAgentManager } from 'ask-sdk-runtime';
+
+const APLVersion = '1.4';
 
 export interface APLDocument {
   type: 'APL';
@@ -77,9 +79,13 @@ interface APLProps {
 }
 
 export class APL extends SkillResponsePart<APLProps> {
+  private static packageVersion: string;
   readonly items: unknown[] = [];
   readonly imports: ImportDefinition[] = [];
-  readonly mainTemplate: MainTemplateDefinition = { parameters: [], items: [] };
+  readonly mainTemplate: MainTemplateDefinition = {
+    parameters: [],
+    items: [],
+  };
   readonly directive: APLDirective = {
     type: 'Alexa.Presentation.APL.RenderDocument',
     token: this.props.token,
@@ -109,7 +115,18 @@ export class APL extends SkillResponsePart<APLProps> {
     const imports = uniqBy(this.imports, (i) => i.name + i.version);
     this.imports.length = 0;
     this.imports.push(...imports);
+    this.registerUserAgent();
     responseBuilder.addDirective(this.directive);
+  }
+
+  private registerUserAgent() {
+    if (!APL.packageVersion) {
+      const packageInfo = __dirname.includes('dist')
+        ? require('../../../../../package.json')
+        : require('../../../../package.json');
+      APL.packageVersion = `${packageInfo.name}/${packageInfo.version}`;
+      UserAgentManager.registerComponent(APL.packageVersion);
+    }
   }
 
   render() {

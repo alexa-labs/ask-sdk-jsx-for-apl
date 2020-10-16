@@ -14,9 +14,19 @@
   limitations under the License.
 */
 
-export * from './responses/apl/alexa/apl-1.4/components';
-export * from './responses/apl/alexa/apl-1.4/commands';
-export * from './responses/apl/root';
-export * from './responses/apl/common';
-export * from './responses/apl-document';
-export * from './responses/skill-response';
+export interface ISetFocusCommand {
+  /* An optional description for this command */
+  description?: string;
+  /* Delay time in milliseconds before this event fires */
+  delay?: number | string;
+  /* If true, disable the Interaction Timer */
+  screenLock?: boolean | string;
+  /* Specify the sequencer that should execute this command. */
+  sequencer?: string;
+  /* If this evaluates to false, the command is skipped */
+  when?: boolean | string;
+  /* The id of the component. */
+  componentId?: string;
+  [key: string]: unknown;
+  readonly type: 'SetFocus';
+}

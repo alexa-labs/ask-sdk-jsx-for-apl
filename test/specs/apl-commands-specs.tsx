@@ -111,30 +111,53 @@ export const sequentialWithMultipleCommandSpec: APLSpec = (getter) => {
     type: 'SpeakItem',
     componentId: 'mySpokenItem'
   };
-  const sequential: Command = {
+  const sequentialWithSequencer: Command = {
     type: 'Sequential',
+    sequencer: "EXAMPLE",
     commands: [playMedia, speakItem]
+  };
+  const sequentialOnMain: Command = {
+    type: 'Sequential',
+    commands: [playMedia]
   };
   const apl = (
     <APL>
       <MainTemplate>
-        <TouchWrapper onPress={[sequential]} />
+        <TouchWrapper onPress={[sequentialWithSequencer]} />
+        <TouchWrapper onPress={[sequentialOnMain]} />
       </MainTemplate>
     </APL>
   );
   expect(getter(apl).mainTemplate.items[0].onPress).toEqual([
     {
       type: 'Sequential',
+      sequencer: 'EXAMPLE',
       commands: [
-        { type: 'PlayMedia',
-        componentId: 'myAudioPlayer',
-        source: 'http://test',
-        audioTrack: 'foreground' },
+        {
+          type: 'PlayMedia',
+          componentId: 'myAudioPlayer',
+          source: 'http://test',
+          audioTrack: 'foreground',
+        },
         {
           type: 'SpeakItem',
-          componentId: 'mySpokenItem'
+          componentId: 'mySpokenItem',
+        },
+      ],
+    },
+  ]);
+
+  expect(getter(apl).mainTemplate.items[1].onPress).toEqual([
+    {
+      type: 'Sequential',
+      commands: [
+        {
+          type: 'PlayMedia',
+          componentId: 'myAudioPlayer',
+          source: 'http://test',
+          audioTrack: 'foreground',
         }
-      ]
+      ],
     },
   ]);
 }

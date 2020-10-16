@@ -15,11 +15,8 @@
 */
 
 import * as React from "react";
-import { APL, MainTemplate, Frame, Container, Image, Text, Command } from "../../lib";
+import { AplDocument, APLImports, APL, MainTemplate, Frame, Container, Image, Text, EditText, GridSequence, TouchWrapper, Video, Command } from "../../lib";
 import { APLSpec } from "./types";
-import { AplDocument } from '../../lib/responses/apl-document/index';
-import { APLImports } from '../../lib/responses/apl/root/AplImports';
-
 
 export const frameSpec: APLSpec = (getter) => {
   const apl = (
@@ -65,12 +62,25 @@ export const lightThemeSpec: APLSpec = (getter) => {
   expect(getter(<APL theme="light" />).theme).toEqual("light");
 };
 
+export const versionSpec: APLSpec = (getter) => {
+  expect(getter(<APL />).version).toEqual("1.4");
+};
+
 export const containerAndTextSpec: APLSpec = getter => {
   const apl = (
     <APL>
       <MainTemplate>
         <Container display="normal">
           <Text text="hello" />
+          <EditText
+            borderColor="darkgrey"
+            hintColor="grey"
+            hintWeight="200"
+            fontSize="20dp"
+            size="10"
+            hint="Zip Code"
+            validCharacters="-0-9"
+          />
         </Container>
       </MainTemplate>
     </APL>
@@ -80,6 +90,10 @@ export const containerAndTextSpec: APLSpec = getter => {
   expect(doc.mainTemplate.items[0].display).toBe("normal");
   expect(doc.mainTemplate.items[0].items[0].type).toBe("Text");
   expect(doc.mainTemplate.items[0].items[0].text).toBe("hello");
+  expect(doc.mainTemplate.items[0].items[1].type).toBe("EditText");
+  expect(doc.mainTemplate.items[0].items[1].hintColor).toBe("grey");
+  expect(doc.mainTemplate.items[0].items[1].hint).toBe("Zip Code");
+  expect(doc.mainTemplate.items[0].items[1].validCharacters).toBe("-0-9");
 };
 
 export const mainTemplateWithDatasourceAndToken: APLSpec = getter => {
@@ -121,6 +135,46 @@ export const multipleContainersAndTextSpec: APLSpec = getter => {
   expect(doc.mainTemplate.items[0].items[0].items[0].text).toBe("hello");
   expect(doc.mainTemplate.items[0].items[0].items[1].type).toBe("Text");
   expect(doc.mainTemplate.items[0].items[0].items[1].text).toBe("from ask-jsx-for-apl");
+};
+
+export const multipleNestedComponentsSpec: APLSpec = getter => {
+  const openUrlCommand: Command = {
+    type: "OpenURL",
+    source: "http://openUrl.com"
+  }
+  const longPressGesture = {
+    type: 'LongPress',
+    onLongPressStart: [openUrlCommand]
+  }
+  const apl = (
+    <APL>
+      <MainTemplate>
+        <Container>
+          <GridSequence childWidths={["20%", "30%", "auto"]}>
+            <Image source="http://1" />
+            <TouchWrapper gestures={[longPressGesture]}>
+              <Text text="testing touchwrapper text" />
+            </TouchWrapper>
+            <Video source={{url: "http://2", repeatCount: 3}} />
+          </GridSequence>
+        </Container>
+      </MainTemplate>
+    </APL>
+  );
+  const doc = getter(apl);
+  const containerComponent = doc.mainTemplate.items[0];
+  const gridSequenceComponent = doc.mainTemplate.items[0].items[0];
+  const touchWrapperSequence = doc.mainTemplate.items[0].items[0].items[1];
+  expect(containerComponent.type).toBe("Container");
+  expect(gridSequenceComponent.type).toBe("GridSequence");
+  expect(gridSequenceComponent.childWidths).toEqual(["20%", "30%", "auto"]);
+  expect(gridSequenceComponent.items[0].type).toBe("Image");
+  expect(gridSequenceComponent.items[0].source).toBe("http://1");
+  expect(touchWrapperSequence.type).toBe("TouchWrapper");
+  expect(touchWrapperSequence.gestures[0]).toEqual(longPressGesture);
+  expect(touchWrapperSequence.items[0].text).toBe("testing touchwrapper text");
+  expect(gridSequenceComponent.items[2].type).toBe("Video");
+  expect(gridSequenceComponent.items[2].source).toEqual({url: "http://2", repeatCount: 3});
 };
 
 export const aplDocumentLevelSpec: APLSpec = getter => {
@@ -234,8 +288,16 @@ export const specs = [
     spec: lightThemeSpec,
   },
   {
+    name: 'versionSpec',
+    spec: versionSpec
+  },
+  {
     name: 'mainTemplateWithDatasourceAndToken',
     spec: mainTemplateWithDatasourceAndToken
+  },
+  {
+    name: 'multipleNestedComponentsSpec',
+    spec: multipleNestedComponentsSpec
   },
   {
     name: 'text within container',
