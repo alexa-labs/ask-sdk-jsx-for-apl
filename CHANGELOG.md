@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-beta.4](https://github.com/alexa-labs/ask-sdk-jsx-for-apl/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2020-10-22)
+
+
+### Features
+
+* Add support for APL extensions and provide developers to fill APL import property. ([0d69275](https://github.com/alexa-labs/ask-sdk-jsx-for-apl/commit/0d69275660c52f56a6fc0160e6178e7e8c7484a6))
+
 ## [1.0.0-beta.3](https://github.com/alexa-labs/ask-sdk-jsx-for-apl/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2020-10-16)
 
 
