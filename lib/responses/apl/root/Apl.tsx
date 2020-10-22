@@ -25,6 +25,7 @@ import {
   MainTemplateDefinition,
   MainTemplateProvider,
   LayoutDefinition,
+  ExtensionDefinition,
 } from '../common/context';
 import { ResponseBuilder } from 'ask-sdk-core';
 import { UserAgentManager } from 'ask-sdk-runtime';
@@ -40,6 +41,7 @@ export interface APLDocument {
   import?: ImportDefinition[];
   theme: string;
   layouts?: LayoutDefinition;
+  extensions?: ExtensionDefinition[];
   commands?: object;
   onMount?: Command[];
   handleKeyDown?: object[];
@@ -69,6 +71,8 @@ interface APLProps {
   dataSources?: object;
   token?: string;
   layouts?: LayoutDefinition;
+  import?: ImportDefinition[];
+  extensions?: ExtensionDefinition[];
   commands?: object;
   onMount?: Command[];
   handleKeyDown?: object[];
@@ -107,6 +111,7 @@ export class APL extends SkillResponsePart<APLProps> {
       resources: this.props.resources,
       styles: this.props.styles,
       layouts: this.layouts,
+      extensions: this.props.extensions,
       graphics: this.props.graphics,
       mainTemplate: this.mainTemplate,
     },
@@ -121,9 +126,15 @@ export class APL extends SkillResponsePart<APLProps> {
   }
 
   private unifyDocumentFields() {
+    //Unify Imports
+    if (this.props.import) {
+      this.imports.push(...this.props.import);
+    }
     const imports = uniqBy(this.imports, (i) => i.name + i.version);
     this.imports.length = 0;
     this.imports.push(...imports);
+    
+    //Unify Layouts
     if (this.props.layouts) {
       this.directive.document.layouts = Object.assign(this.props.layouts, this.layouts);
     }

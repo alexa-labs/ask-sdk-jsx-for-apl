@@ -14,9 +14,23 @@
   limitations under the License.
 */
 
-import * as React from "react";
-import { AplDocument, APLImports, APL, MainTemplate, Frame, Container, Image, Text, EditText, GridSequence, TouchWrapper, Video, Command } from "../../lib";
-import { APLSpec } from "./types";
+import * as React from 'react';
+import {
+  AplDocument,
+  APLImports,
+  APL,
+  MainTemplate,
+  Frame,
+  Container,
+  Image,
+  Text,
+  EditText,
+  GridSequence,
+  TouchWrapper,
+  Video,
+  Command,
+} from '../../lib';
+import { APLSpec } from './types';
 
 export const frameSpec: APLSpec = (getter) => {
   const apl = (
@@ -178,7 +192,9 @@ export const multipleNestedComponentsSpec: APLSpec = getter => {
 };
 
 export const aplDocumentLevelSpec: APLSpec = getter => {
-  const imports = [{ name: 'test-import', version: '1.1.0' }];
+  const externalImports = [{ name: 'external-import', version: '1.1.0' }];
+  const jsxImports = [{ name: 'jsx-import', version: '1.1.0' }];
+  const extensions = [{ name: 'Back', uri: 'aplext:backstack:10' }];
   const layouts = { testLayout: {} };
   const styles = { testStyle: {} };
   const resources = [
@@ -227,16 +243,16 @@ export const aplDocumentLevelSpec: APLSpec = getter => {
     }
   };
   const apl = (
-    <APL settings={settings} export={exports} resources={resources} styles={styles} 
-    layouts={layouts} description={description} graphics={graphics}
+    <APL settings={settings} export={exports} resources={resources} styles={styles} import={externalImports}
+    layouts={layouts} description={description} graphics={graphics} extensions={extensions}
     commands={commandsMap} onMount={[animateCommand]} handleKeyDown={[keyboardEvent]}
     handleKeyUp={[keyboardEvent]}>
-      <APLImports imports={imports} />
+      <APLImports imports={jsxImports} />
     </APL> 
   );
   const doc = getter(apl);
   expect(doc.export.graphics[0]).toBe("testGraphic");
-  expect(doc.export.description).toBe("Test Jsx");
+  expect(doc.description).toBe("Test Jsx");
   expect(doc.graphics.testGraphic).toEqual(graphics.testGraphic);
   expect(doc.commands.myAnimateCommand.parameters[0]).toBe("to");
   expect(doc.commands.myAnimateCommand.command).toEqual(animateCommand);
@@ -244,13 +260,22 @@ export const aplDocumentLevelSpec: APLSpec = getter => {
   expect(doc.handleKeyDown[0]).toEqual(keyboardEvent);
   expect(doc.handleKeyUp[0]).toEqual(keyboardEvent);
   expect(doc.settings).toEqual(settings);
-  expect(doc.resources.colors.testColor).toBe("#0022f3");
+  expect(doc.resources[0].colors.testColor).toBe("#0022f3");
   expect(doc.import[0]).toEqual(
     {
-      name: "test-import",
+      name: "jsx-import",
       version: "1.1.0"
     }
   );
+  expect(doc.import[1]).toEqual(
+    {
+      name: "external-import",
+      version: "1.1.0"
+    }
+  );
+  expect(doc.extensions[0]).toEqual(
+    { name: 'Back', uri: 'aplext:backstack:10' }
+  )
 }
 
 export const aplDataBindingSpec: APLSpec = getter => {
@@ -298,6 +323,10 @@ export const specs = [
   {
     name: 'multipleNestedComponentsSpec',
     spec: multipleNestedComponentsSpec
+  },
+  {
+    name: 'apl document level properties',
+    spec: aplDocumentLevelSpec,
   },
   {
     name: 'text within container',

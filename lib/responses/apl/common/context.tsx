@@ -31,6 +31,11 @@ export interface LayoutDefinition {
   }
 }
 
+export interface ExtensionDefinition {
+  name: string,
+  uri: string
+}
+
 export const ResponseBuilderCtx = React.createContext<ResponseBuilder | null>(null);
 
 export interface MainTemplateDefinition {
