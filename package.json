@@ -1,6 +1,6 @@
 {
   "name": "ask-sdk-jsx-for-apl",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.5",
   "description": "JSX for APL is a React-based APL templating framework that allows developers to define APL document within the code.",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
@@ -35,7 +35,6 @@
     "standard-version": "^9.0.0",
     "ts-jest": "^26.0.0",
     "tslint": "^5.11.0",
-    "typedoc": "^0.15.0",
     "typescript": "^3.5.1"
   },
   "peerDependencies": {
